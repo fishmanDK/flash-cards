@@ -10,13 +10,18 @@ type Autorization interface {
 	// ValidateRegistration(user anki.User) (*ReportValidator, bool)
 }
 
+type Validate interface {
+	ValidateRegistration(user anki.User) (*ReportValidator, error)
+}
+
 type Service struct {
 	Autorization
+	Validate
 }
 
 func NewService(db *db.Repository) *Service {
 	return &Service{
 		Autorization: NewAuthService(db.Autorization),
+		Validate:     NewAuthService(db.Autorization),
 	}
 }
-

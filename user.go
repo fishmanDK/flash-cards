@@ -2,8 +2,14 @@ package anki
 
 type User struct {
 	// Id 		int    `json: "-"`
-	Username       string `json: "username"`
-	Email          string `json: "email"`
-	Password       string `json: "password"`
-	RepeatPassword string `json: "repeat-password"`
+	Username       string `json: "Username"`
+	Email          string `json: "Email"`
+	Password       string `json: "Password"`
+	RepeatPassword string `json: "Repeat-password"`
+}
+
+type FinalUser struct {
+	Username string `json: "username"`
+	Email    string `json: "email"`
+	Password string `json: "password"`
 }

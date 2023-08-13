@@ -14,18 +14,14 @@
       <form action="process.php" method="post" class="auth">
         <h1 class="title">Регистрация</h1>
         <div class="inp">
-          <input type="text" name="email" placeholder="Email" class="row" />
-          {{if .report.Email "mail already exists"}}
-            <div class="err">Данная почта уже зарегистрирована</div>
-          {{end}}
-          <input type="text" name="username" placeholder="Username" class="row" />
-          <input type="password" name="password" placeholder="Password" class="row" />
-          <input type="password" name="repeat-password" placeholder="Repeat password" class="row" />
+          <input type="text" name="Email" placeholder="Email" class="row" />
+          <input type="text" name="Username" placeholder="Username" class="row" />
+          <input type="password" name="Password" placeholder="Password" class="row" />
+          <input type="password" name="Repeat-password" placeholder="Repeat password" class="row" />
           <button class="butt">Регистрация</button>
         </div>
         <span class="text">Уже есть аккаунт?</span>
         <a class="link" href="/auth/signIn" class="link">Войти</a>
-        <span class="text">{{.report.Email}}</span>
       </form>
     </div>
   </div>
