@@ -5,16 +5,18 @@ import (
 	"github.com/fishmanDK/anki_telegram/internal/db"
 )
 
-type Autorization interface{
-	CreateUser(user anki.User) (int, error)
+type Autorization interface {
+	CreateUser(user anki.User) error
+	// ValidateRegistration(user anki.User) (*ReportValidator, bool)
 }
 
-type Service struct{
+type Service struct {
 	Autorization
 }
 
-func NewService(db *db.Repository) *Service{
+func NewService(db *db.Repository) *Service {
 	return &Service{
-		Autorization: db,
+		Autorization: NewAuthService(db.Autorization),
 	}
 }
+

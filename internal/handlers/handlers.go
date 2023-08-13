@@ -7,7 +7,7 @@ import (
 )
 
 var(
-	templatesPwd = "/Users/denissvecnikov/golang/anki/internal/templates/*.html"
+	templatesPwd = "/Users/denissvecnikov/golang/anki/internal/template/*.html"
 	frontPath = "/Users/denissvecnikov/golang/anki/internal/front/"
 )
 
@@ -32,7 +32,15 @@ func (h *Handlers) InitRouts() *gin.Engine{
 	auth := router.Group("/auth")
 	{
 		auth.GET("/signIn", h.signIn)
+		auth.POST("/signIn", h.PsignIn)
+
+		auth.GET("/signUp", h.signUp)
+		auth.POST("/signUp", h.PsignUp)
 	}
 	
+	api := router.Group("/api")
+	{
+		api.GET("/main", h.mainPage)
+	}
 	return router
 }

@@ -22,7 +22,7 @@ func ConectMongo() *mongo.Client{
 	if err != nil{
 		log.Fatalf(err.Error())
 	}
-	defer client.Disconnect(ctx)
+	// defer client.Disconnect(ctx)
 
 	err = client.Ping(ctx, readpref.Primary())
 	if err != nil{

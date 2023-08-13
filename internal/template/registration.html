@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/assets/css/registration.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="ram">
+    <div class="form">
+      <form action="process.php" method="post" class="auth">
+        <h1 class="title">Регистрация</h1>
+        <div class="inp">
+          <input type="text" name="email" placeholder="Email" class="row" />
+          {{if .report.Email "mail already exists"}}
+            <div class="err">Данная почта уже зарегистрирована</div>
+          {{end}}
+          <input type="text" name="username" placeholder="Username" class="row" />
+          <input type="password" name="password" placeholder="Password" class="row" />
+          <input type="password" name="repeat-password" placeholder="Repeat password" class="row" />
+          <button class="butt">Регистрация</button>
+        </div>
+        <span class="text">Уже есть аккаунт?</span>
+        <a class="link" href="/auth/signIn" class="link">Войти</a>
+        <span class="text">{{.report.Email}}</span>
+      </form>
+    </div>
+  </div>
+  <script src="/assets/js/registration.js"></script>
+</body>
+
+</html>
