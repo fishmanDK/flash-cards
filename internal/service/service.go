@@ -7,7 +7,6 @@ import (
 
 type Autorization interface {
 	CreateUser(user anki.User) error
-	// ValidateRegistration(user anki.User) (*ReportValidator, bool)
 }
 
 type Validate interface {

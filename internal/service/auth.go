@@ -23,21 +23,3 @@ func (a *AuthService) CreateUser(user anki.User) error {
 	}
 	return a.db.CreateUser(person)
 }
-
-// func (a *AuthService) ValidateRegistration(user anki.User) (db.ReportValidator, error) {
-// 	report, flaw := a.db.ValidateRegistration(user)
-// 	log.Println(flaw)
-// 	if !flaw {
-// 		return db.ReportValidator{}, errors.New("форма не прошла валидацию")
-// 	}
-
-// 	return report, errors.New("форма не прошла валидацию")
-
-// 	// report, flaw := a.db.ValidateRegistration(user)
-// 	// if flaw {
-// 	// 	return &db.ReportValidator{}, errors.New("форма не прошла валидацию")
-// 	// }
-
-// 	// return report, nil
-// 	// return a.db.ValidateRegistration(user.Email, user.Username, user.Password, user.RepeatPassword)
-// }

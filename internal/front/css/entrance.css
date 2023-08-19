@@ -1,72 +1,85 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-body{
-    background-color: #aed1ff;
+body {
+  background-color: #aed1ff;
 }
 
-.ram{
-    top: 50%;
-    left: 50%;
-    position: fixed;
-    font-family: 'Arial Narrow Bold', sans-serif;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 450px;
-    border-radius: 10px;
-    background-color: #d1ffae;
+.ram {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  font-family: "Arial Narrow Bold", sans-serif;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 450px;
+  border-radius: 10px;
+  background-color: #d1ffae;
 }
 
-.form{
-    display: grid;
-    margin: 30px;
-    height: 400px;
+.form {
+  display: grid;
+  margin: 30px;
+  height: 400px;
 }
 
-.title{
-    margin-top: 40px;
-    text-align: center;
-    height: 60px;
+.title {
+  margin-top: 40px;
+  text-align: center;
+  height: 60px;
 }
 
-.inp{
-    margin-top: 50px;
+.inp {
+  margin-top: 50px;
 }
 
-.inp > .row, .butt{
-    border: none;
-    border-radius: 3px;
+.inp > .row,
+.butt {
+  border: none;
+  border-radius: 3px;
 }
 
-.row{
-    display: block;
-    margin: auto;
-    width: 270px;
-    height: 30px;
-    margin-bottom: 20px;
-    outline: none;
+.row {
+  display: block;
+  margin: auto;
+  width: 270px;
+  height: 30px;
+  margin-bottom: 20px;
+  outline: none;
 }
 
-.butt{
-    display: block;
-    margin: auto;
-    width: 270px;
-    height: 30px;
-    background-color: 	#ffaed1;
+.butt {
+  display: block;
+  margin: auto;
+  width: 270px;
+  height: 30px;
+  background-color: #ffaed1;
 }
 
-.link{
-    display: inline-block;
-    margin-top: 20px;
-    color: black;
-    text-decoration: none;
-    margin: 20px 0 0 20px;
+.link,
+.text {
+  display: inline-block;
 }
 
-.link:hover{
-    text-decoration: underline;
-    
+.link {
+  color: black;
+  text-decoration: none;
+  margin: 20px 0 0 10px;
+}
+
+.row:focus {
+  border: 2px solid #ffaed1;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.text {
+  font-size: 14px;
+  margin-left: 35px;
+  font-weight: 500;
 }

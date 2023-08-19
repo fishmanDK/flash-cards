@@ -21,10 +21,13 @@ func NewHandlers(service service.Service) *Handlers {
 }
 
 func (h *Handlers) InitRouts() *gin.Engine {
-	router := gin.New()
+	router := gin.Default()
 
 	router.Static("/assets/", frontPath)
 	router.LoadHTMLGlob(templatesPwd)
+
+	router.RedirectTrailingSlash = true
+	router.RedirectFixedPath = true
 
 	auth := router.Group("/auth")
 	{

@@ -15,11 +15,11 @@ type ReportValidator struct {
 
 func (a *AuthService) ValidateRegistration(user anki.User) (*ReportValidator, error) {
 	var report ReportValidator
-	// report := new(ReportValidator)
-
+	log.Println(user)
 	flaw := false //это для того, чтобы отследить были ли ошибки
 
 	if user.Password != user.RepeatPassword {
+		// log.Println(user.Password, user.RepeatPassword)
 		report.Password = "different passwords"
 		flaw = true
 	}

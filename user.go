@@ -5,7 +5,7 @@ type User struct {
 	Username       string `json: "Username"`
 	Email          string `json: "Email"`
 	Password       string `json: "Password"`
-	RepeatPassword string `json: "Repeat-password"`
+	RepeatPassword string `json: "RepeatPassword"`
 }
 
 type FinalUser struct {

@@ -11,14 +11,14 @@
 <body>
   <div class="ram">
     <div class="form">
-      <form action="process.php" method="post" class="auth">
+      <form action="/auth/signUp" method="post" class="auth">
         <h1 class="title">Регистрация</h1>
         <div class="inp">
           <input type="text" name="Email" placeholder="Email" class="row" />
           <input type="text" name="Username" placeholder="Username" class="row" />
           <input type="password" name="Password" placeholder="Password" class="row" />
-          <input type="password" name="Repeat-password" placeholder="Repeat password" class="row" />
-          <button class="butt">Регистрация</button>
+          <input type="password" name="RepeatPassword" placeholder="Repeat password" class="row" />
+          <button class="butt" me>Регистрация</button>
         </div>
         <span class="text">Уже есть аккаунт?</span>
         <a class="link" href="/auth/signIn" class="link">Войти</a>
