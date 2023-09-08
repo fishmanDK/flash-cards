@@ -19,7 +19,6 @@ func (a *AuthService) ValidateRegistration(user anki.User) (*ReportValidator, er
 	flaw := false //это для того, чтобы отследить были ли ошибки
 
 	if user.Password != user.RepeatPassword {
-		// log.Println(user.Password, user.RepeatPassword)
 		report.Password = "different passwords"
 		flaw = true
 	}

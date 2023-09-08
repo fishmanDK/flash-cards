@@ -10,8 +10,9 @@ func main() {
 	client := db.ConectMongo()
 	db := db.NuwRepository(client)
 	service := service.NewService(db)
-	handlers := handlers.NewHandlers(*service)
-	server := handlers.InitRouts()
+	handler := handlers.NewHandlers(*service)
+
+	server := handler.InitRouts()
 
 	server.Run(":8080")
 }

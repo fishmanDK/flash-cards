@@ -1,45 +1,43 @@
 package handlers
 
 import (
-	// "html/template"
-	"log"
 	"net/http"
 
 	anki "github.com/fishmanDK/anki_telegram"
 	"github.com/gin-gonic/gin"
 )
 
-// type User struct {
-// 	Id       int
-// 	Username string
-// 	Email    string
-// 	Password string
-// }
-
-// type Details struct {
-// 	Email    string
-// 	Password string
-// }
+type User struct {
+	Email    string `json: "email"`
+	Password string `json: "password"`
+}
 
 func (h *Handlers) signIn(c *gin.Context) {
-	c.HTML(200, "entrance.html", gin.H{})
+	c.Header("Cache-Control", "no-cache, no-store, must-revalidate")
+	c.HTML(http.StatusOK, "entrance.html", nil)
 }
 
 func (h *Handlers) PsignIn(c *gin.Context) {
-	var input anki.User
+	var input User
 
-	if err := c.BindJSON(&input); err != nil {
-		NewErrorResponse(c, http.StatusBadRequest, err.Error())
+	err := c.BindJSON(&input)
+	if err != nil {
+		NewErrorResponse(c, http.StatusBadRequest, "поля при аутентификации не заполненны")
 		return
 	}
 
-	err := h.service.Autorization.CreateUser(input)
+	accessToken, err := h.Service.Authentication(input.Email, input.Password)
 	if err != nil {
-		NewErrorResponse(c, http.StatusInternalServerError, err.Error())
+		// NewErrorResponse(c, http.StatusBadRequest, "пользователь не найден")
+		c.JSON(http.StatusOK, gin.H{
+			"error": "true",
+		})
+		return
 	}
 
-	log.Println(input)
-	c.String(200, "succses")
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"accessToken": accessToken,
+	})
 }
 
 func (h *Handlers) signUp(c *gin.Context) {
@@ -47,28 +45,6 @@ func (h *Handlers) signUp(c *gin.Context) {
 
 	c.HTML(http.StatusOK, "registration.html", gin.H{})
 }
-
-// func (h *Handlers) PsignUp(c *gin.Context) {
-// 	var input anki.User
-// 	if err := c.BindJSON(&input); err != nil {
-// 		NewErrorResponse(c, http.StatusBadRequest, err.Error())
-// 		return
-// 	}
-// 	c.Header("Cache-Control", "no-cache, no-store, must-revalidate")
-// 	report, err := h.service.Validate.ValidateRegistration(input)
-// 	if err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{
-// 			"errors": report,
-// 		})
-// 		return
-// 	}
-// 	err = h.service.Autorization.CreateUser(input)
-// 	if err != nil {
-// 		NewErrorResponse(c, http.StatusBadRequest, err.Error())
-// 		return
-// 	}
-//  	c.Redirect(302, "/auth/signIn")
-// }
 
 func (h *Handlers) PsignUp(c *gin.Context) {
 
@@ -78,7 +54,7 @@ func (h *Handlers) PsignUp(c *gin.Context) {
 		return
 	}
 
-	report, err := h.service.Validate.ValidateRegistration(input)
+	report, err := h.Service.Validate.ValidateRegistration(input)
 
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
@@ -87,7 +63,7 @@ func (h *Handlers) PsignUp(c *gin.Context) {
 		return
 	}
 
-	err = h.service.Autorization.CreateUser(input)
+	err = h.Service.Autorization.CreateUser(input)
 	if err != nil {
 		NewErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
@@ -95,4 +71,3 @@ func (h *Handlers) PsignUp(c *gin.Context) {
 
 	c.JSON(http.StatusOK, nil)
 }
-

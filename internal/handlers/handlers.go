@@ -11,16 +11,17 @@ var (
 )
 
 type Handlers struct {
-	service service.Service
+	Service service.Service
 }
 
 func NewHandlers(service service.Service) *Handlers {
 	return &Handlers{
-		service: service,
+		Service: service,
 	}
 }
 
 func (h *Handlers) InitRouts() *gin.Engine {
+
 	router := gin.Default()
 
 	router.Static("/assets/", frontPath)
@@ -36,11 +37,17 @@ func (h *Handlers) InitRouts() *gin.Engine {
 
 		auth.GET("/signUp", h.signUp)
 		auth.POST("/signUp", h.PsignUp)
+		
 	}
 
-	api := router.Group("/api")
+
+	api := router.Group("/api", h.Authentication)
 	{
-		api.GET("/main", h.mainPage)
+		api.GET("/main", h.GetGeneralInfo)
+		api.GET("/category", h.GetCategories)
+		// api.GET("/quesiton", h.)
 	}
+
 	return router
 }
+
