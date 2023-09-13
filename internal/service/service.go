@@ -15,21 +15,35 @@ type Validate interface {
 	ValidateRegistration(user anki.User) (*ReportValidator, error)
 }
 
-type Api interface {
-	GetDataAboutUser(id string) (db.ResultInfoAboutUser, error)
-	GetCategories(id string) (db.UserCategories, error)
+type Category interface {
+	// GetDataAboutUser(id string) (db.ResultInfoAboutUser, error)
+	GetCategories(userId string) (db.UserCategories, error)
+	GetCategoryById(userId, categoryName string) (db.Category, error)
+	CreateCategory(userId, categoryName string) (string, error)
+	UpdateTitle(userId, oldName, newName string) error
+	DeleteCategory(userId, categoryName string) error
+}
+
+type Question interface {
+	GetAllQuestions(userId, categoryName string) (db.ResUserQuestions, error)
+	GetQuestion(userId, questonName string) (db.Question, error)
+	CreateQuestion(userId, categoryName string, input anki.CreateQuestion) (string, error)
+	UpdateQustion(userId, categoryName, questionName string, input anki.UpdateQuestion) error
+	DeleteQuestion(userId, categoryName, questionName string) error
 }
 
 type Service struct {
 	Autorization
 	Validate
-	Api
+	Category
+	Question
 }
 
-func NewService(db *db.Repository) *Service {
+func NewService(db *db.Repository) *Service    {
 	return &Service{
 		Autorization: NewAuthService(db.Autorization),
 		Validate:     NewAuthService(db.Autorization),
-		Api:          NewApiService(db.Api),
+		Category:     NewCategoryService(db.CategoryMethonds),
+		Question:     NewQuestionService(db.QuestionMethonds),
 	}
 }

@@ -1,10 +1,12 @@
 package handlers
 
 import (
+	"log"
 	"net/http"
 
 	anki "github.com/fishmanDK/anki_telegram"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type User struct {
@@ -22,20 +24,18 @@ func (h *Handlers) PsignIn(c *gin.Context) {
 
 	err := c.BindJSON(&input)
 	if err != nil {
+		log.Println(input)
 		NewErrorResponse(c, http.StatusBadRequest, "поля при аутентификации не заполненны")
 		return
 	}
 
 	accessToken, err := h.Service.Authentication(input.Email, input.Password)
 	if err != nil {
-		// NewErrorResponse(c, http.StatusBadRequest, "пользователь не найден")
-		c.JSON(http.StatusOK, gin.H{
-			"error": "true",
-		})
+		NewErrorResponse(c, http.StatusUnauthorized, err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, map[string]interface{}{
+	c.JSON(http.StatusOK, bson.M{
 		"accessToken": accessToken,
 	})
 }

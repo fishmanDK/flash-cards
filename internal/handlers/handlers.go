@@ -37,17 +37,32 @@ func (h *Handlers) InitRouts() *gin.Engine {
 
 		auth.GET("/signUp", h.signUp)
 		auth.POST("/signUp", h.PsignUp)
-		
-	}
 
+	}
 
 	api := router.Group("/api", h.Authentication)
 	{
-		api.GET("/main", h.GetGeneralInfo)
-		api.GET("/category", h.GetCategories)
-		// api.GET("/quesiton", h.)
+		// api.GET("/main", h.GetGeneralInfo)
+
+		category := api.Group("/categories")
+		{
+			category.GET("/", h.GetAllCategories)
+			category.GET("/:categoryName", h.GetCategory)
+			category.POST("/", h.CreateCategory)
+			category.PATCH("/:categoryName", h.UpdateTitleCategory)
+			category.DELETE("/:categoryName", h.DeleteCategory)
+
+			question := category.Group(":categoryName/questions")
+			{
+				question.GET("/", h.GetAllQuestions)
+				question.GET("/:questionName", h.GetQuestion)
+				question.POST("/", h.CreateQuestion)
+				question.PATCH("/:questionName", h.UpdateQustion)
+				question.DELETE("/:questionName", h.DeleteQuestion)
+			}
+		}
+
 	}
 
 	return router
 }
-
